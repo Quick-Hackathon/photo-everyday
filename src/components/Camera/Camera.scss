@@ -28,8 +28,9 @@
     }
 
     &__button {
-        border: 1px solid #00b7ff;
-        background: none;
+        border: 1px solid #73736f;
+        background: #fcfcf4;
+        color: #73736f;
         line-height: 40px;
         font-size: 20px;
         padding: 0 20px;
@@ -42,8 +43,8 @@
 
         &:hover,
         &:active {
-            background: #42bbff;
-            color: white;
+            background: #deded7;
+            color: #73736f;
         }
 
         &:focus {
