@@ -23,9 +23,22 @@ class App extends Component {
         );
 
         await fse.ensureDir(this.props.settings.saveDirPath);
+
+        const pathExists = await fse.pathExists(saveFilePath);
+
+        if (
+            pathExists &&
+            !window.confirm(
+                "You already took a picture today. Are you sure you want to overwrite it?"
+            )
+        ) {
+            return false;
+        }
+
         await fse.writeFile(saveFilePath, base64Data, "base64");
 
         console.log(`Photo saved to "${saveFilePath}"`);
+        return true;
     };
 
     renderPage() {

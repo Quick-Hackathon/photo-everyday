@@ -45,11 +45,16 @@ class Camera extends Component {
 
     retake = () => this.setState({ capturedImage: null });
 
-    done = () => {
-        this.props.handleCapturedImage(this.state.capturedImage);
-        this.setState({ capturedImage: null }, () => {
-            this.videoElement.srcObject = this.state.cameraStream;
-        });
+    done = async () => {
+        const processed = await Promise.resolve(
+            this.props.handleCapturedImage(this.state.capturedImage)
+        );
+
+        if (processed) {
+            this.setState({ capturedImage: null }, () => {
+                this.videoElement.srcObject = this.state.cameraStream;
+            });
+        }
     };
 
     renderButtons() {
