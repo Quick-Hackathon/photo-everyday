@@ -8,8 +8,22 @@ import { Provider } from "react-redux";
 import path from "path";
 import getUserPath from "./modules/getUserPath";
 import { PAGE__MAIN } from "./store/page";
+import { remote } from "electron";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const mainWindow = remote.getCurrentWindow();
+
+// Adjust window height to the toolbar
+const bounds = mainWindow.getBounds();
+const desiredHeight = bounds.height;
+const realHeight = window.innerHeight;
+const heightDiff = desiredHeight - realHeight;
+if (heightDiff > 0) {
+    bounds.height = bounds.height + heightDiff;
+    mainWindow.setBounds(bounds);
+}
+
+const composeEnhancers =
+    mainWindow.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const defaultSettings = {
     saveDirPath: path.join(getUserPath(), "photos"),

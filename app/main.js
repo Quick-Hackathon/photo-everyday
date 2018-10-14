@@ -24,6 +24,7 @@ const appOnReady = () => {
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         show: true,
+        resizable: isElectronDev,
         height: 700,
         width: isElectronDev ? 1600 : 700
     });
