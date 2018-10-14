@@ -5,6 +5,7 @@ import Camera from "../Camera/Camera";
 import fse from "fs-extra";
 import path from "path";
 import { PAGE__SETTINGS } from "../../store/page";
+import Toolbar from "../Toolbar/Toolbar";
 
 class App extends Component {
     handleCapturedImage = async dataUri => {
@@ -33,10 +34,15 @@ class App extends Component {
     }
 
     render() {
-        return <div className="App">{this.renderPage()}</div>;
+        return (
+            <div className="App">
+                <Toolbar />
+                {this.renderPage()}
+            </div>
+        );
     }
 }
 
-const mapStateToProps = ({ settings, page }) => ({ settings, page });
+const mapStateToProps = ({ settings }) => ({ settings });
 
 export default connect(mapStateToProps)(App);
