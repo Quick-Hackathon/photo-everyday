@@ -50,11 +50,12 @@ class SettingsPage extends Component {
                 <h2>Settings</h2>
 
                 <div className="SettingsPage__row">
+                    <div className="SettingsPage__label">Save Path:</div>
                     <div className="SettingsPage__value">
                         {this.props.settings.saveDirPath}
                     </div>
                     <button
-                        className="SettingsPage__value"
+                        className="SettingsPage__button"
                         onClick={this.changeSaveDirPath}
                     >
                         Change
