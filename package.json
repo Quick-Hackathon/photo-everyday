@@ -4,9 +4,6 @@
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3"
   },
-  "scripts": {
-    "precommit": "lint-staged"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
