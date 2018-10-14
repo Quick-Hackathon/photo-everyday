@@ -17,6 +17,18 @@
         transform: scaleX(-1);
     }
 
+    &__video-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    &__guide {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     &__text {
         background: #deded7;
         font-size: 30px;

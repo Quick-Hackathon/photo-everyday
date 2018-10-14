@@ -2,7 +2,7 @@
   "name": "photo-everyday",
   "homepage": ".",
   "main": "app/main.js",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "yarn webpack:build && yarn electron:build",
@@ -48,6 +48,7 @@
     "rewire": "^4.0.1"
   },
   "dependencies": {
+    "date-fns": "^2.0.0-alpha.22",
     "electron-is-dev": "^1.0.1",
     "fs-extra": "^7.0.0",
     "is-electron-renderer": "^2.0.1"

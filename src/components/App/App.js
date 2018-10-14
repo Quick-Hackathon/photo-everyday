@@ -7,6 +7,7 @@ import path from "path";
 import { PAGE__SETTINGS } from "../../store/page";
 import Toolbar from "../Toolbar/Toolbar";
 import SettingsPage from "../SettingsPage/SettingsPage";
+import { format } from "date-fns/esm";
 
 class App extends Component {
     handleCapturedImage = async dataUri => {
@@ -15,15 +16,30 @@ class App extends Component {
             ""
         );
 
+        const date = format(Date.now(), "yyyy-MM-dd");
+
         const saveFilePath = path.join(
             this.props.settings.saveDirPath,
-            `${Date.now()}.jpg`
+            `${date}.jpg`
         );
 
         await fse.ensureDir(this.props.settings.saveDirPath);
+
+        const pathExists = await fse.pathExists(saveFilePath);
+
+        if (
+            pathExists &&
+            !window.confirm(
+                "You already took a picture today. Are you sure you want to overwrite it?"
+            )
+        ) {
+            return false;
+        }
+
         await fse.writeFile(saveFilePath, base64Data, "base64");
 
         console.log(`Photo saved to "${saveFilePath}"`);
+        return true;
     };
 
     renderPage() {
