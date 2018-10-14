@@ -1,10 +1,14 @@
 {
+  "main": "app/main.js",
   "devDependencies": {
+    "electron": "^3.0.4",
+    "electron-builder": "^20.28.4",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3"
   },
   "scripts": {
+    "electron:watch": "electron app/main.js",
     "precommit": "lint-staged"
   },
   "husky": {
