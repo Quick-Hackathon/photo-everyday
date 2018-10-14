@@ -14,21 +14,17 @@ class Toolbar extends Component {
         this.props.setPage(nextPage);
     };
 
-    closeApp = () => {
-        window.close();
-    };
-
     render() {
         return (
             <div className="Toolbar">
-                <div className="Toolbar__left">
-                    <button onClick={this.toggleSettings}>
-                        {this.props.page === PAGE__MAIN ? "Settings" : "Camera"}
-                    </button>
-                </div>
-                <div className="Toolbar__right">
-                    <button onClick={this.closeApp}>Close</button>
-                </div>
+                <i
+                    className={`Toolbar__settings-button fa fa-${
+                        this.props.page === PAGE__MAIN
+                            ? "cog"
+                            : "caret-square-o-left"
+                    }`}
+                    onClick={this.toggleSettings}
+                />
             </div>
         );
     }
