@@ -8,10 +8,8 @@
     "react-scripts": "2.0.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "electron:watch": "electron app/main.js",
+    "precommit": "lint-staged"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -25,14 +23,12 @@
   "devDependencies": {
     "electron": "^3.0.4",
     "electron-builder": "^20.28.4",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.0.1",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-sass": "^4.9.3",
     "prettier": "^1.14.3"
-  },
-  "scripts": {
-    "electron:watch": "electron app/main.js",
-    "precommit": "lint-staged"
   },
   "husky": {
     "hooks": {
