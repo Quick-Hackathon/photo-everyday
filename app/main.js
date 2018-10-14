@@ -1,10 +1,6 @@
-const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const { app, BrowserWindow, Menu } = require("electron");
 const isElectronDev = require("electron-is-dev");
-const {
-    default: installExtension,
-    REACT_DEVELOPER_TOOLS,
-    REDUX_DEVTOOLS
-} = require("electron-devtools-installer");
 
 // disable security warnings, useful but annoying
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = "true";
@@ -21,11 +17,23 @@ const createWindow = () => {
         width: 800
     });
 
-    mainWindow.loadURL("http://localhost:3000/");
+    if (isElectronDev) {
+        mainWindow.loadURL("http://localhost:3000");
+    } else {
+        mainWindow.loadFile(path.join(app.getAppPath(), "build/index.html"));
+    }
+
     mainWindow.on("show", mainWindowOnShow);
+    mainWindow.on("close", mainWindowOnClose);
 };
 
 const initDevTools = () => {
+    const {
+        default: installExtension,
+        REACT_DEVELOPER_TOOLS,
+        REDUX_DEVTOOLS
+    } = require("electron-devtools-installer");
+
     mainWindow.webContents.openDevTools();
 
     [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].forEach(extension => {
@@ -35,12 +43,84 @@ const initDevTools = () => {
     });
 };
 
+const createMenu = () => {
+    const template = [
+        {
+            label: "Edit",
+            submenu: [
+                { role: "undo" },
+                { role: "redo" },
+                { type: "separator" },
+                { role: "cut" },
+                { role: "copy" },
+                { role: "paste" },
+                { role: "pasteandmatchstyle" },
+                { role: "delete" },
+                { role: "selectall" }
+            ]
+        },
+        {
+            label: "View",
+            submenu: [
+                { role: "reload" },
+                { role: "forcereload" },
+                { role: "toggledevtools" },
+                { type: "separator" },
+                { role: "resetzoom" },
+                { role: "zoomin" },
+                { role: "zoomout" },
+                { type: "separator" },
+                { role: "togglefullscreen" }
+            ]
+        },
+        {
+            role: "window",
+            submenu: [{ role: "minimize" }, { role: "close" }]
+        }
+    ];
+
+    if (process.platform === "darwin") {
+        template.unshift({
+            label: app.getName(),
+            submenu: [
+                { role: "about" },
+                { type: "separator" },
+                { role: "services", submenu: [] },
+                { type: "separator" },
+                { role: "hide" },
+                { role: "hideothers" },
+                { role: "unhide" },
+                { type: "separator" },
+                { role: "quit" }
+            ]
+        });
+
+        // Window menu
+        template[3].submenu = [
+            { role: "close" },
+            { role: "minimize" },
+            { role: "zoom" },
+            { type: "separator" },
+            { role: "front" }
+        ];
+    }
+
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+};
+
 const mainWindowOnShow = () => {
     mainWindow.maximize();
 };
 
+const mainWindowOnClose = () => {
+    console.log("Main window closed, app quitting");
+    app.quit();
+};
+
 app.on("ready", () => {
     console.log("App ready, creating main window");
+    createMenu();
     createWindow();
     if (isElectronDev) {
         initDevTools();
