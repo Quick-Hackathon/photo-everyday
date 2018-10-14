@@ -1,12 +1,25 @@
 .Camera {
     &__video,
-    &__image {
-        object-fit: contain;
-        max-width: 80vw;
-        max-height: 80vh;
-        margin: 20px auto 0;
+    &__image,
+    &__loading {
+        height: 480px;
+        max-width: 100%;
+        margin: 0 auto;
         display: block;
+    }
+
+    &__video,
+    &__image {
         transform: scaleX(-1);
+    }
+
+    &__loading {
+        background: #deded7;
+        font-size: 30px;
+        color: #73736f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__button-wrapper {

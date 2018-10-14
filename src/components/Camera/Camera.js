@@ -6,15 +6,16 @@ class Camera extends Component {
     state = {};
 
     /**
-     * todo deal with errors getting the stream, and show a loader
      * @return {Promise<void>}
      */
     async componentDidMount() {
-        this.cameraStream = await navigator.mediaDevices.getUserMedia({
+        const cameraStream = await navigator.mediaDevices.getUserMedia({
             video: true
         });
 
-        this.videoElement.srcObject = this.cameraStream;
+        this.setState({ cameraStream }, () => {
+            this.videoElement.srcObject = cameraStream;
+        });
     }
 
     capture = () => {
@@ -33,7 +34,7 @@ class Camera extends Component {
 
     reset = () => {
         this.setState({ capturedImage: null }, () => {
-            this.videoElement.srcObject = this.cameraStream;
+            this.videoElement.srcObject = this.state.cameraStream;
         });
     };
 
@@ -45,17 +46,25 @@ class Camera extends Component {
     renderPreview() {
         if (this.state.capturedImage) {
             return (
-                <img src={this.state.capturedImage} className="Camera__image" />
+                <img
+                    src={this.state.capturedImage}
+                    className="Camera__image"
+                    alt=""
+                />
             );
         }
 
-        return (
-            <video
-                className="Camera__video"
-                autoPlay={true}
-                ref={ref => (this.videoElement = ref)}
-            />
-        );
+        if (this.state.cameraStream) {
+            return (
+                <video
+                    className="Camera__video"
+                    autoPlay={true}
+                    ref={ref => (this.videoElement = ref)}
+                />
+            );
+        }
+
+        return <div className="Camera__loading">Loading Camera...</div>;
     }
 
     renderButtons() {
