@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./SettingsPage.scss";
-import { setSaveDirPath } from "../../store/settings";
+import { setSettings } from "../../store/settings";
 import connect from "react-redux/es/connect/connect";
 import Electron from "../../modules/Electron";
+import { defaultSettings } from "../../store/defaultState";
 
 class SettingsPage extends Component {
     changeSaveDirPath = () => {
@@ -16,9 +17,17 @@ class SettingsPage extends Component {
                     return;
                 }
 
-                this.props.setSaveDirPath(filePaths[0]);
+                this.props.setSettings({ saveDirPath: filePaths[0] });
             }
         );
+    };
+
+    toggleShowGuide = () => {
+        this.props.setSettings({
+            guidePath: this.props.settings.guidePath
+                ? null
+                : defaultSettings.guidePath
+        });
     };
 
     render() {
@@ -37,6 +46,16 @@ class SettingsPage extends Component {
                         Change
                     </button>
                 </div>
+
+                <div className="SettingsPage__row">
+                    <div className="SettingsPage__label">Show guide</div>
+                    <button
+                        className="SettingsPage__value"
+                        onClick={this.toggleShowGuide}
+                    >
+                        {this.props.settings.guidePath ? "Disable" : "Enable"}
+                    </button>
+                </div>
             </div>
         );
     }
@@ -44,7 +63,7 @@ class SettingsPage extends Component {
 
 const mapStateToProps = ({ settings }) => ({ settings });
 const mapDispatchToProps = dispatch => ({
-    setSaveDirPath: dirPath => dispatch(setSaveDirPath(dirPath))
+    setSettings: settings => dispatch(setSettings(settings))
 });
 
 export default connect(
