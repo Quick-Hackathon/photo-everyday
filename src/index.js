@@ -3,11 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./css/font-awesome.css";
 import App from "./components/App/App";
-import { createStore, compose } from "redux";
-import rootReducer from "./store/rootReducer";
 import { Provider } from "react-redux";
-import defaultState from "./store/defaultState";
 import Electron from "./modules/Electron";
+import getStore from "./store/getStore";
 
 const mainWindow = Electron.getCurrentWindow();
 
@@ -21,9 +19,7 @@ if (heightDiff > 0) {
     mainWindow.setBounds(bounds);
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(rootReducer, defaultState, composeEnhancers());
+const store = getStore();
 
 ReactDOM.render(
     <Provider store={store}>
