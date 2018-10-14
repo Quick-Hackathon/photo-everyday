@@ -1,5 +1,5 @@
 import path from "path";
-import { remote } from "electron";
+import Electron from "./Electron";
 import isElectronDev from "electron-is-dev";
 import getAppPath from "./getAppPath";
 
@@ -10,6 +10,6 @@ export default function getUserPath() {
     if (isElectronDev) {
         return path.join(getAppPath(), "data");
     } else {
-        return remote.app.getPath("userData");
+        return Electron.app.getPath("userData");
     }
 }

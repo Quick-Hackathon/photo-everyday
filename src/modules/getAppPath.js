@@ -1,15 +1,15 @@
 import isElectronDev from "electron-is-dev";
-import { remote } from "electron";
+import Electron from "./Electron";
 
 /**
  * @return {string}
  */
 export default function getAppPath() {
     if (isElectronDev) {
-        return remote.app
+        return Electron.app
             .getAppPath()
             .replace(/^(.*)\/node_modules.*default_app\.asar$/, "$1");
     } else {
-        return remote.app.getAppPath();
+        return Electron.app.getAppPath();
     }
 }
