@@ -20,8 +20,7 @@ if (heightDiff > 0) {
     mainWindow.setBounds(bounds);
 }
 
-const composeEnhancers =
-    mainWindow.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, defaultState, composeEnhancers());
 
