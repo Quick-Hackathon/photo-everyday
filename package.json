@@ -8,9 +8,8 @@
     "react-scripts": "2.0.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "webpack:watch": "react-scripts start",
+    "webpack:build": "react-scripts build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
