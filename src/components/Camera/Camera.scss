@@ -1,7 +1,7 @@
 .Camera {
     &__video,
     &__image,
-    &__loading {
+    &__text {
         height: 480px;
         max-width: 100%;
         margin: 0 auto;
@@ -17,16 +17,24 @@
         transform: scaleX(-1);
     }
 
-    &__loading {
+    &__text {
         background: #deded7;
         font-size: 30px;
         color: #73736f;
         justify-content: center;
         align-items: center;
         display: none;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
 
         &--show {
             display: flex;
+        }
+
+        &--error {
+            background: #e83635;
+            color: white;
         }
     }
 
