@@ -9,7 +9,7 @@
   },
   "scripts": {
     "electron:watch": "electron app/main.js",
-    "webpack:watch": "react-scripts start",
+    "webpack:watch": "BROWSER=none react-scripts start",
     "webpack:build": "react-scripts build",
     "eject": "react-scripts eject",
     "precommit": "lint-staged"
