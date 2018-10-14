@@ -13,8 +13,8 @@ let mainWindow;
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         show: true,
-        height: 600,
-        width: 800
+        height: 700,
+        width: isElectronDev ? 1600 : 700
     });
 
     if (isElectronDev) {
