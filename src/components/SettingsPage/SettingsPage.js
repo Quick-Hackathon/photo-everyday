@@ -64,8 +64,11 @@ class SettingsPage extends Component {
 
                 <div className="SettingsPage__row">
                     <div className="SettingsPage__label">Show guide</div>
+                    <div className="SettingsPage__value">
+                        {this.props.settings.guidePath ? "Enabled" : "Disabled"}
+                    </div>
                     <button
-                        className="SettingsPage__value"
+                        className="SettingsPage__button"
                         onClick={this.toggleShowGuide}
                     >
                         {this.props.settings.guidePath ? "Disable" : "Enable"}
