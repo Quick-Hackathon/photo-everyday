@@ -9,6 +9,9 @@
   },
   "scripts": {
     "electron:watch": "electron app/main.js",
+    "webpack:watch": "react-scripts start",
+    "webpack:build": "react-scripts build",
+    "eject": "react-scripts eject",
     "precommit": "lint-staged"
   },
   "eslintConfig": {
@@ -28,7 +31,9 @@
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-sass": "^4.9.3",
-    "prettier": "^1.14.3"
+    "prettier": "^1.14.3",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.1"
   },
   "husky": {
     "hooks": {
