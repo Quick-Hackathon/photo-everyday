@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./App.scss";
+import Camera from "../Camera/Camera";
 
 class App extends Component {
     render() {
-        return <h1>App {JSON.stringify(this.props.config)}</h1>;
+        return (
+            <div className="App">
+                <Camera />
+            </div>
+        );
     }
 }
 
