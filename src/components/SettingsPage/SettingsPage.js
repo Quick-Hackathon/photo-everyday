@@ -4,12 +4,26 @@ import { setSettings } from "../../store/settings";
 import connect from "react-redux/es/connect/connect";
 import Electron from "../../modules/Electron";
 import { defaultSettings } from "../../store/defaultState";
+import getSettingsPath from "../../modules/getSettingsPath";
+import fse from "fs-extra";
 
 class SettingsPage extends Component {
+    saveSettings = settings => {
+        const newSettings = {
+            ...this.props.settings,
+            ...settings,
+        };
+
+        fse.writeJson(getSettingsPath(), newSettings, {
+            spaces: 2,
+        }).catch(error => console.error("Error while saving settings", error));
+        this.props.setSettings(newSettings);
+    };
+
     changeSaveDirPath = () => {
         Electron.dialog.showOpenDialog(
             {
-                properties: ["openDirectory"]
+                properties: ["openDirectory"],
             },
             filePaths => {
                 if (!filePaths || filePaths.length === 0) {
@@ -17,16 +31,16 @@ class SettingsPage extends Component {
                     return;
                 }
 
-                this.props.setSettings({ saveDirPath: filePaths[0] });
+                this.saveSettings({ saveDirPath: filePaths[0] });
             }
         );
     };
 
     toggleShowGuide = () => {
-        this.props.setSettings({
+        this.saveSettings({
             guidePath: this.props.settings.guidePath
                 ? null
-                : defaultSettings.guidePath
+                : defaultSettings.guidePath,
         });
     };
 
@@ -63,7 +77,7 @@ class SettingsPage extends Component {
 
 const mapStateToProps = ({ settings }) => ({ settings });
 const mapDispatchToProps = dispatch => ({
-    setSettings: settings => dispatch(setSettings(settings))
+    setSettings: settings => dispatch(setSettings(settings)),
 });
 
 export default connect(

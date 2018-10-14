@@ -12,7 +12,7 @@ const SET_SETTINGS = "settings/SET_SETTINGS";
 export default function settingsReducer(state = null, action) {
     switch (action.type) {
         case SET_SETTINGS:
-            return { ...state, ...action.payload };
+            return action.payload;
     }
 
     return state;
@@ -24,5 +24,5 @@ export default function settingsReducer(state = null, action) {
  */
 export const setSettings = settings => ({
     type: SET_SETTINGS,
-    payload: settings
+    payload: settings,
 });
