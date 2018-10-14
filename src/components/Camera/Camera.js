@@ -91,7 +91,6 @@ class Camera extends Component {
                 >
                     Loading Camera...
                 </div>
-                ;
                 <div className="Camera__button-wrapper">
                     {this.renderButtons()}
                 </div>

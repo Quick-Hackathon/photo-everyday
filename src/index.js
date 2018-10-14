@@ -5,15 +5,17 @@ import App from "./components/App/App";
 import { createStore, compose } from "redux";
 import rootReducer from "./store/rootReducer";
 import { Provider } from "react-redux";
+import path from "path";
+import getUserPath from "./modules/getUserPath";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const defaultConfig = {
-    test: "ok"
+const defaultSettings = {
+    saveDirPath: path.join(getUserPath(), "photos")
 };
 
 const defaultState = {
-    config: defaultConfig
+    settings: defaultSettings
 };
 
 const store = createStore(rootReducer, defaultState, composeEnhancers());

@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import config from "./config";
+import settings from "./settings";
+import page from "./page";
 
 export default combineReducers({
-    config
+    settings,
+    page
 });

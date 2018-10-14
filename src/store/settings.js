@@ -1,4 +1,4 @@
-const SET_CONFIG = "config/SET_CONFIG";
+const SET_SETTINGS = "settings/SET_SETTINGS";
 
 /**
  * @param {{}|null} state
@@ -8,10 +8,10 @@ const SET_CONFIG = "config/SET_CONFIG";
  * }} action
  * @return {{}}
  */
-export default function configReducer(state = null, action) {
+export default function settingsReducer(state = null, action) {
     // eslint-disable-next-line
     switch (action.type) {
-        case SET_CONFIG:
+        case SET_SETTINGS:
             return action.payload;
     }
 
@@ -19,10 +19,10 @@ export default function configReducer(state = null, action) {
 }
 
 /**
- * @param {{}|null} config
+ * @param {{}|null} settings
  * @return {{type: string, payload: {}}}
  */
-export const setConfig = config => ({
-    type: SET_CONFIG,
-    payload: config
+export const setSettings = settings => ({
+    type: SET_SETTINGS,
+    payload: settings
 });
