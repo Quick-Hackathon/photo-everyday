@@ -22,10 +22,16 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "electron": "^3.0.4",
+    "electron-builder": "^20.28.4",
     "husky": "^1.1.2",
     "lint-staged": "^7.3.0",
     "node-sass": "^4.9.3",
     "prettier": "^1.14.3"
+  },
+  "scripts": {
+    "electron:watch": "electron app/main.js",
+    "precommit": "lint-staged"
   },
   "husky": {
     "hooks": {
