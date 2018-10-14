@@ -1,10 +1,40 @@
 .Camera {
-    &__video {
+    &__video,
+    &__image {
         object-fit: contain;
         max-width: 80vw;
         max-height: 80vh;
         margin: 20px auto 0;
         display: block;
         transform: scaleX(-1);
+    }
+
+    &__button-wrapper {
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    &__button {
+        border: 1px solid #00b7ff;
+        background: none;
+        line-height: 40px;
+        font-size: 20px;
+        padding: 0 20px;
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+
+        & + & {
+            margin-left: 20px;
+        }
+
+        &:hover,
+        &:active {
+            background: #42bbff;
+            color: white;
+        }
+
+        &:focus {
+            outline-color: black;
+        }
     }
 }

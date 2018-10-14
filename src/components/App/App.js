@@ -4,10 +4,14 @@ import "./App.scss";
 import Camera from "../Camera/Camera";
 
 class App extends Component {
+    handleCapturedImage = base64Image => {
+        console.log("handleCapturedImage", base64Image);
+    };
+
     render() {
         return (
             <div className="App">
-                <Camera />
+                <Camera handleCapturedImage={this.handleCapturedImage} />
             </div>
         );
     }
