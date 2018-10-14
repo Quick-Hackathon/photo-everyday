@@ -3,18 +3,22 @@ import "./Camera.scss";
 import PropTypes from "prop-types";
 
 class Camera extends Component {
-    state = {};
+    state = {
+        capturedImage: null,
+        cameraStream: null
+    };
 
     /**
-     * todo deal with errors getting the stream, and show a loader
      * @return {Promise<void>}
      */
     async componentDidMount() {
-        this.cameraStream = await navigator.mediaDevices.getUserMedia({
+        const cameraStream = await navigator.mediaDevices.getUserMedia({
             video: true
         });
 
-        this.videoElement.srcObject = this.cameraStream;
+        this.setState({ cameraStream }, () => {
+            this.videoElement.srcObject = cameraStream;
+        });
     }
 
     capture = () => {
@@ -31,38 +35,20 @@ class Camera extends Component {
         });
     };
 
-    reset = () => {
-        this.setState({ capturedImage: null }, () => {
-            this.videoElement.srcObject = this.cameraStream;
-        });
-    };
+    retake = () => this.setState({ capturedImage: null });
 
     done = () => {
         this.props.handleCapturedImage(this.state.capturedImage);
-        this.reset();
+        this.setState({ capturedImage: null }, () => {
+            this.videoElement.srcObject = this.state.cameraStream;
+        });
     };
-
-    renderPreview() {
-        if (this.state.capturedImage) {
-            return (
-                <img src={this.state.capturedImage} className="Camera__image" />
-            );
-        }
-
-        return (
-            <video
-                className="Camera__video"
-                autoPlay={true}
-                ref={ref => (this.videoElement = ref)}
-            />
-        );
-    }
 
     renderButtons() {
         if (this.state.capturedImage) {
             return (
                 <React.Fragment>
-                    <button className="Camera__button" onClick={this.reset}>
+                    <button className="Camera__button" onClick={this.retake}>
                         Retake
                     </button>
                     <button className="Camera__button" onClick={this.done}>
@@ -82,7 +68,30 @@ class Camera extends Component {
     render() {
         return (
             <div className="Camera">
-                {this.renderPreview()}
+                <img
+                    src={this.state.capturedImage}
+                    className={`Camera__image ${
+                        this.state.capturedImage ? "Camera__image--show" : ""
+                    }`}
+                    alt=""
+                />
+                <video
+                    className={`Camera__video ${
+                        this.state.cameraStream && !this.state.capturedImage
+                            ? "Camera__video--show"
+                            : ""
+                    }`}
+                    autoPlay={true}
+                    ref={ref => (this.videoElement = ref)}
+                />
+                <div
+                    className={`Camera__loading ${
+                        !this.state.cameraStream ? "Camera__loading--show" : ""
+                    }`}
+                >
+                    Loading Camera...
+                </div>
+                ;
                 <div className="Camera__button-wrapper">
                     {this.renderButtons()}
                 </div>

@@ -1,12 +1,33 @@
 .Camera {
     &__video,
+    &__image,
+    &__loading {
+        height: 480px;
+        max-width: 100%;
+        margin: 0 auto;
+        display: none;
+
+        &--show {
+            display: block;
+        }
+    }
+
+    &__video,
     &__image {
-        object-fit: contain;
-        max-width: 80vw;
-        max-height: 80vh;
-        margin: 20px auto 0;
-        display: block;
         transform: scaleX(-1);
+    }
+
+    &__loading {
+        background: #deded7;
+        font-size: 30px;
+        color: #73736f;
+        justify-content: center;
+        align-items: center;
+        display: none;
+
+        &--show {
+            display: flex;
+        }
     }
 
     &__button-wrapper {
@@ -15,8 +36,9 @@
     }
 
     &__button {
-        border: 1px solid #00b7ff;
-        background: none;
+        border: 1px solid #73736f;
+        background: #fcfcf4;
+        color: #73736f;
         line-height: 40px;
         font-size: 20px;
         padding: 0 20px;
@@ -29,8 +51,8 @@
 
         &:hover,
         &:active {
-            background: #42bbff;
-            color: white;
+            background: #deded7;
+            color: #73736f;
         }
 
         &:focus {
