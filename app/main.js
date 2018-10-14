@@ -6,9 +6,20 @@ const isElectronDev = require("electron-is-dev");
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = "true";
 
 /**
- * @type {BrowserWindow}
+ * @type {Electron.BrowserWindow}
  */
 let mainWindow;
+
+const gotTheLock = app.requestSingleInstanceLock();
+
+const appOnReady = () => {
+    console.log("App ready, creating main window");
+    createMenu();
+    createWindow();
+    if (isElectronDev) {
+        initDevTools();
+    }
+};
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
@@ -118,11 +129,16 @@ const mainWindowOnClose = () => {
     app.quit();
 };
 
-app.on("ready", () => {
-    console.log("App ready, creating main window");
-    createMenu();
-    createWindow();
-    if (isElectronDev) {
-        initDevTools();
-    }
-});
+if (!gotTheLock) {
+    app.quit();
+} else {
+    app.on("second-instance", (event, commandLine, workingDirectory) => {
+        console.log("App is already running");
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) myWindow.restore();
+            mainWindow.focus();
+        }
+    });
+
+    app.on("ready", appOnReady);
+}
