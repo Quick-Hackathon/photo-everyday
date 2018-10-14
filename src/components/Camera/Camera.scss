@@ -5,7 +5,11 @@
         height: 480px;
         max-width: 100%;
         margin: 0 auto;
-        display: block;
+        display: none;
+
+        &--show {
+            display: block;
+        }
     }
 
     &__video,
@@ -17,9 +21,13 @@
         background: #deded7;
         font-size: 30px;
         color: #73736f;
-        display: flex;
         justify-content: center;
         align-items: center;
+        display: none;
+
+        &--show {
+            display: flex;
+        }
     }
 
     &__button-wrapper {
