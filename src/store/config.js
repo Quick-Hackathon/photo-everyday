@@ -9,6 +9,7 @@ const SET_CONFIG = "config/SET_CONFIG";
  * @return {{}}
  */
 export default function configReducer(state = null, action) {
+    // eslint-disable-next-line
     switch (action.type) {
         case SET_CONFIG:
             return action.payload;

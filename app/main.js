@@ -21,7 +21,7 @@ const createWindow = () => {
         width: 800
     });
 
-    mainWindow.loadURL("https://google.com");
+    mainWindow.loadURL("http://localhost:3000/");
     mainWindow.on("show", mainWindowOnShow);
 };
 
