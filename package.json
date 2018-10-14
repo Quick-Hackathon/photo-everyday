@@ -14,7 +14,7 @@
     "electron:build:linux": "node app-build/build.js --platform=linux",
     "electron:build:mac": "node app-build/build.js --platform=darwin",
     "electron:build:win": "node app-build/build.js --platform=win32",
-    "webpack:watch": "react-scripts start",
+    "webpack:watch": "BROWSER=none react-scripts start",
     "webpack:build": "react-scripts build",
     "precommit": "lint-staged"
   },

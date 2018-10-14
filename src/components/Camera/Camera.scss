@@ -1,0 +1,10 @@
+.Camera {
+    &__video {
+        object-fit: contain;
+        max-width: 80vw;
+        max-height: 80vh;
+        margin: 20px auto 0;
+        display: block;
+        transform: scaleX(-1);
+    }
+}
