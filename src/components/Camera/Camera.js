@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Camera.scss";
 import PropTypes from "prop-types";
 import { classes } from "../../modules/classes";
+import { connect } from "react-redux";
 
 class Camera extends Component {
     state = {
@@ -92,6 +93,28 @@ class Camera extends Component {
 
     shouldShowText = () => this.state.error || !this.state.cameraStream;
 
+    renderVideoPreview() {
+        return (
+            <div className="Camera__video-wrapper">
+                <video
+                    className={classes([
+                        "Camera__video",
+                        [this.shouldShowVideo(), "Camera__video--show"]
+                    ])}
+                    autoPlay={true}
+                    ref={ref => (this.videoElement = ref)}
+                />
+                {this.props.guidePath ? (
+                    <img
+                        src={this.props.guidePath}
+                        className="Camera__guide"
+                        alt=""
+                    />
+                ) : null}
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className="Camera">
@@ -103,14 +126,7 @@ class Camera extends Component {
                     ])}
                     alt=""
                 />
-                <video
-                    className={classes([
-                        "Camera__video",
-                        [this.shouldShowVideo(), "Camera__video--show"]
-                    ])}
-                    autoPlay={true}
-                    ref={ref => (this.videoElement = ref)}
-                />
+                {this.renderVideoPreview()}
                 <div
                     className={classes([
                         "Camera__text",
@@ -129,7 +145,12 @@ class Camera extends Component {
 }
 
 Camera.propTypes = {
-    handleCapturedImage: PropTypes.func.isRequired
+    handleCapturedImage: PropTypes.func.isRequired,
+    guidePath: PropTypes.string
 };
 
-export default Camera;
+const mapStateToProps = ({ settings }) => ({
+    guidePath: settings.guidePath
+});
+
+export default connect(mapStateToProps)(Camera);

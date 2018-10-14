@@ -11,7 +11,8 @@ import getUserPath from "./modules/getUserPath";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const defaultSettings = {
-    saveDirPath: path.join(getUserPath(), "photos")
+    saveDirPath: path.join(getUserPath(), "photos"),
+    guidePath: "./assets/guide.png"
 };
 
 const defaultState = {
