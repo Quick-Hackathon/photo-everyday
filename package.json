@@ -15,7 +15,7 @@
     "electron:build:mac": "node app-build/build.js --platform=darwin",
     "electron:build:win": "node app-build/build.js --platform=win32",
     "webpack:watch": "BROWSER=none ./scripts/react-scripts start",
-    "webpack:build": "./scripts/react-scripts build",
+    "webpack:build": "node ./scripts/react-scripts build",
     "precommit": "lint-staged"
   },
   "eslintConfig": {
